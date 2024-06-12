@@ -19,7 +19,6 @@ import fr.ensisa.hassenforder.tp.network.Protocol;
 
 public class TPReader extends BasicAbstractReader {
 
-	//TODO
 	private User user;
 	private Collection<SharedText> allTexts;
 	private SharedText text;
@@ -27,7 +26,7 @@ public class TPReader extends BasicAbstractReader {
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM hh:mm:ss");
 	private Collection<TextOperation> allOperations;
 	private Collection<Participant> allParticipants;
-	private ArrayList<User> allUsers;
+	private Collection<User> allUsers;
 	private Credential credential;
 
     public TPReader(InputStream inputStream) {
@@ -35,10 +34,14 @@ public class TPReader extends BasicAbstractReader {
     }
 
     private void eraseFields() {
-		//TODO
+    	user = null;
+    	text = null;
+    	credential = null;
+    	allUsers = new ArrayList<>();
+    	allTexts = new ArrayList<>();
+    	allOperations = new ArrayList<>();
     }
 
-    //TODO
 
     public void receive() {
         type = readInt();
@@ -97,7 +100,6 @@ public class TPReader extends BasicAbstractReader {
 
 	private void readAllTexts() {
 		System.out.println("Started reading all texts (client)");
-		allTexts = new ArrayList<>();
 
 		int size = readInt();
 		for (int i=0; i<size; i++){
@@ -115,7 +117,6 @@ public class TPReader extends BasicAbstractReader {
 
 	private void readAllOperations() {
 		System.out.println("Started reading all text operations (client)");
-		allOperations = new ArrayList<>();
 
 		int size = readInt();
 		for (int i=0; i<size; i++){
@@ -181,7 +182,6 @@ public class TPReader extends BasicAbstractReader {
 
 	private void readAllUsers() {
 		System.out.println("Started reading all users (client)");
-		allUsers = new ArrayList<>();
 		int size = readInt();
 		for (int i=0; i<size; i++){
 			User user = new User(readLong(), readString(), null);
